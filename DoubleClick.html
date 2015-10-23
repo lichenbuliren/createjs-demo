@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>DoubleClick</title>
+    <link rel="stylesheet" href="css/shared.css">
+    <link rel="stylesheet" href="css/examples.css">
+    <script src="js/examples.js"></script>
+    <script src="js/preloadjs-0.6.1.min.js"></script>
+    <script src="js/easeljs-0.8.1.min.js"></script>
+</head>
+<body>
+<header class="EaselJS">
+    <h1>Double Click Example</h1>
+
+    <p>An example to show how to use the <code>dblclick</code> event.</p>
+</header>
+
+<div>
+    <canvas id="testCanvas" width="960" height="300"></canvas>
+</div>
+<script>
+    window.onload = function(){
+        var stage,container;
+
+        function init(){
+
+            stage = new createjs.Stage('testCanvas');
+            container = new createjs.Container();
+
+            stage.addChild(container);
+
+            container.x = 200;
+            container.y = 100;
+
+            var target = new createjs.Shape();
+            target.graphics.beginFill('#f00').drawRect(-10,-10,300,60);
+            container.addChild(target);
+
+            var text = new createjs.Text('Double Click Me!','36px Arial', '#FFF');
+            text.textBaseline = "top";
+            container.addChild(text);
+
+            container.addEventListener('dblclick',function(){
+                alert('DoubleClick');
+            });
+
+            stage.update();
+        }
+
+        init();
+    }
+</script>
+</body>
+</html>

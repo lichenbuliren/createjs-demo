@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Button Extends Container</title>
+    <link rel="stylesheet" href="css/shared.css">
+    <link rel="stylesheet" href="css/examples.css">
+    <script src="js/examples.js"></script>
+    <script src="js/preloadjs-0.6.1.min.js"></script>
+    <script src="js/easeljs-0.8.1.min.js"></script>
+</head>
+<body>
+<header class="EaselJS">
+    <h1>Sprite Sheets</h1>
+
+    <p>
+        An example of defining a <code>Button</code>which extends <code>Container</code>
+    </p>
+</header>
+
+<div>
+    <canvas id="testCanvas" width="960" height="400"></canvas>
+</div>
+<script src="js/Button.js"></script>
+<script>
+    window.onload = function(){
+        var stage;
+
+        function init(){
+            stage = new createjs.Stage('testCanvas');
+            stage.enableMouseOver();
+            var myself = new Button('Heaven','#f00');
+            myself.y = 20;
+
+            var she = new Button('QiFeng','#0f0');
+            she.y = myself.y + 50;
+
+            var her = new Button('YingLing','#0ff');
+            her.y = she.y + 50;
+
+            myself.x = she.x = her.x = 20;
+
+            stage.addChild(myself,she,her);
+            createjs.Ticker.on('tick',stage);
+        }
+
+        init();
+    }
+</script>
+</body>
+</html>

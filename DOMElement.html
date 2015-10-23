@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>DOMElement</title>
+    <link rel="stylesheet" href="css/shared.css">
+    <link rel="stylesheet" href="css/examples.css">
+    <script src="js/examples.js"></script>
+    <script src="js/preloadjs-0.6.1.min.js"></script>
+    <script src="js/easeljs-0.8.1.min.js"></script>
+</head>
+<body>
+<header class="EaselJS">
+    <h1>DOMElement</h1>
+
+    <p>Simple example of using <code>DOMElement</code> to position HTML content
+        within the EaselJS display list. Note how the black
+        <code>DOMElement</code> can display outside the canvas boundaries,
+        whereas the red <code>Shape</code> cannot.</p>
+</header>
+
+<div>
+    <div id="foo"
+         style="z-index: 1; position: absolute; background-color: #111; color:#FFF; width:260px; height:260px; padding: 10px; visibility: hidden;">
+        <b>Hello! I'm an HTML div.</b><br/><br/>
+        I am not rendered to the canvas, but I can be included in the display
+        list for positioning and transformations.<br/><br/>
+        This means I can contain any HTML content (rich text, forms, video,
+        etc), but I'm not a full part of the EaselJS display list.<br/><br/>
+        <button id="btn" width="100" onclick="alert('hello')">This is a
+            button!
+        </button>
+        <a href="http://easeljs.com/">This is a link</a>
+    </div>
+    <canvas id="testCanvas" width="960" height="400"></canvas>
+</div>
+<script>
+    window.onload = function(){
+        var stage,container;
+
+        function init(){
+
+            stage = new createjs.Stage('testCanvas');
+            container = new createjs.Container();
+
+            stage.addChild(container);
+
+            var frame = new createjs.Shape();
+            frame.graphics.beginFill('#f00').drawRect(0,0,300,300);
+            frame.regX = 150;
+            frame.regY = 150;
+
+            var element = new createjs.DOMElement('foo');
+            element.regX = 140;
+            element.regY = 140;
+
+            container.addChild(frame,element);
+            container.rotation = -45;
+            container.x = 480;
+            container.y = 200;
+            container.alpha = 0.8;
+
+
+            createjs.Ticker.timingMode = createjs.Ticker.RAF;
+            createjs.Ticker.addEventListener("tick", tick);
+        }
+
+        function tick(event){
+            container.rotation += event.delta * 0.01;
+            container.alpha = 0.5 * (1 + Math.cos(container.rotation * 0.01));
+            stage.update(event);
+        }
+
+        init();
+    }
+</script>
+</body>
+</html>

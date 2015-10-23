@@ -87,7 +87,7 @@
                     update = true;
                 });
 
-                // 类似于mouseover事件，但是不会冒泡，有点想事件代理，只会有一个事件接收对象，
+                // 类似于mouseover事件，但是不会冒泡，有点像事件代理，只会有一个事件接收对象，
                 // 那就是多个shape实例的父容器container
                 bitmap.on('rollover',function(event){
                     this.scaleX = this.scaleY = this.scale * 1.2;

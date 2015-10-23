@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>SpriteSheet</title>
+    <link rel="stylesheet" href="css/shared.css">
+    <link rel="stylesheet" href="css/examples.css">
+    <script src="js/examples.js"></script>
+    <script src="js/preloadjs-0.6.1.min.js"></script>
+    <script src="js/easeljs-0.8.1.min.js"></script>
+</head>
+<body>
+<header class="EaselJS">
+    <h1>Sprite Sheets</h1>
+
+    <p>
+        An example of defining a <code>Bitmap().mask</code>
+    </p>
+
+    <p>
+        <strong>Note:</strong> Some browsers can not load images or access pixel
+        data when running local files, and may throw a security error or not
+        work unless the content is running on a server.
+    </p>
+</header>
+
+<div>
+    <canvas id="testCanvas" width="960" height="400"></canvas>
+</div>
+<script>
+    window.onload = function(){
+        var stage,flower;
+
+        function init(){
+            // 显示加载动画
+            examples.showDistractor();
+            stage = new createjs.Stage('testCanvas');
+
+            canvasW = stage.canvas.width;
+            canvasH = stage.canvas.height;
+
+            flower = new Image();
+            flower.onload = handleComplete;
+            flower.src = 'images/daisy.png';
+        }
+
+        function handleComplete(){
+            // 隐藏加载动画
+            examples.hideDistractor();
+
+            var daisy = new createjs.Bitmap(flower);
+            // 设置图形的位移
+            daisy.setTransform(100,100);
+
+            var mask = new createjs.Shape();
+            mask.graphics = new createjs.Graphics().beginStroke('red').beginBitmapFill(daisy).drawCircle(140,140,30).endStroke();
+
+            // 给图片设置蒙版
+            daisy.mask = mask;
+
+            // 如果要看到mask的边界，则需要自己手动添加到stage中
+            stage.addChild(daisy,mask);
+            stage.update();
+        }
+
+        init();
+    }
+</script>
+</body>
+</html>
